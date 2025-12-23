@@ -1,0 +1,22 @@
+name: Run Alfred
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Prompt for the agent'
+        required: true
+
+jobs:
+  run-alfred:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Alfred Agent
+        uses: vm0-ai/run-action@v1
+        with:
+          agent: alfred
+          prompt: ${{ github.event.inputs.prompt }}
+          artifact-name: alfred-output
+          vm0-token: ${{ secrets.VM0_TOKEN }}
+          secrets: |
+            CLAUDE_CODE_OAUTH_TOKEN=${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
